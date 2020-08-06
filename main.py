@@ -27,7 +27,7 @@ for i, x in enumerate(attrs):
         print(f'posting {i} photo')
         text, author = get_quote()
         vk.wall.post(owner_id = -192839261, from_group=1, attachments = x, message = text + '\n\n©' + author)
-        sleep(180)
+        sleep(1800)
     except Exception as e:
         print(e.__class__)
         continue
