@@ -20,7 +20,7 @@ while True:
     with open('att.txt', 'r') as f:
         attrs = f.read().splitlines()
     try:
-        print(f'posting {count} photo')
+        print(f'posting {count} photo {attrs[0]}')
         text, author = get_quote()
         vk.wall.post(owner_id = -192839261, from_group=1, attachments = attrs[0], message = text + '\n\n©' + author)
         attrs.pop(0)
