@@ -11,7 +11,7 @@ def get_quote():
     quoteAuthor = res.json()['quoteAuthor']
     return quoteText, quoteAuthor
 
-vk_session = vk_api.VkApi('89648268951', 'Maxim161*')
+vk_session = vk_api.VkApi('89648268951', 'MAximus74@')
 vk_session.auth()
 vk = vk_session.get_api()
 count = 0
