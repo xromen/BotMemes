@@ -2,6 +2,7 @@ import vk_api
 from os import getcwd
 from time import sleep
 import requests
+from random import choice
 
 
 def get_quote():
@@ -14,20 +15,31 @@ def get_quote():
 vk_session = vk_api.VkApi('89648268951', 'MAximus74@')
 vk_session.auth()
 vk = vk_session.get_api()
-count = 0
 
-while True:
-    with open('att.txt', 'r') as f:
-        attrs = f.read().splitlines()
+groups = ['amfet1', 'prukl', 'publicepsilon777', 'pozvk', 'fun_club_sponge_bob_mem', 'prucl', 'intellectualmems', 'gifsvine', 'oldy_zdez']
+attrs = []
+
+while 1:
     try:
-        print(f'posting {count} photo {attrs[0]}')
-        text, author = get_quote()
-        vk.wall.post(owner_id = -192839261, from_group=1, attachments = attrs[0], message = text + '\n\n©' + author)
-        attrs.pop(0)
-        with open('att.txt', 'w') as f:
-            f.write('\n'.join(attrs))
-        count += 1
-        sleep(1800)
-    except Exception as e:
-        print(e)
+        wall = vk.wall.get(domain=choice(groups), count=10)['items']
+        post_id = max({i['id'] : i['likes']['count'] for i in wall})
+        post = [i for i in wall if i['id']==post_id]
+        #print(post)
+        atts = ''
+        for i in post[0]['attachments']:
+            if i['type']!='photo':
+                continue
+            if atts:
+                atts+=','
+            atts += 'photo'+str(i['photo']['owner_id'])+'_'+str(i['photo']['id'])
+        if not atts in attrs:
+            print(atts)
+            print(vk.wall.post(owner_id = -192839261, from_group=1, attachments = atts))
+            attrs.append(atts)
+        else:
+            continue
+        if len(attrs)>20:
+            attrs.pop(0)
+    except:
         continue
+    sleep(1800)
